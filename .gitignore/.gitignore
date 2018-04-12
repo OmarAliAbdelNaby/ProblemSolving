@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct position
+{
+    int x;
+    int y;
+};
+
+int main()
+{
+    int n, k=0;
+    cin >> n;
+    string s;
+    cin >> s;
+    vector<position>arrPos;
+    position pos = {0,0};
+    for(int i=0 ; i<n ; i++)
+    {
+        if(s[i] == 'R') pos.x++;
+        else if(s[i] == 'U') pos.y++;
+        arrPos.push_back(pos);
+    }
+    for(int i=1 ; i<n ; i++)
+    {
+        if(arrPos[i].x == arrPos[i].y) //at gate
+        {
+            if(i == n-1) break;
+            if(arrPos[i-1].x == arrPos[i].x)
+            {
+                if(arrPos[i+1].y > arrPos[i].y) k++;
+            }
+            else if(arrPos[i-1].y == arrPos[i].y)
+            {
+                if(arrPos[i+1].x > arrPos[i].x) k++;
+            }
+        }
+    }
+    cout << k;
+    /*for(int i=0 ; i<n ; i++)
+    {
+        cout << arrPos[i].x << ", " << arrPos[i].y << endl;
+    }*/
+    return 0;
+}
